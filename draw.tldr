@@ -1,0 +1,142 @@
+{
+  "document": {
+    "id": "doc",
+    "name": "New Document",
+    "version": 15.5,
+    "pages": {
+      "page": {
+        "id": "page",
+        "name": "Page 1",
+        "childIndex": 1,
+        "shapes": {
+          "818fd84f-ee42-438e-0745-e5d40676d901": {
+            "id": "818fd84f-ee42-438e-0745-e5d40676d901",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 3,
+            "point": [
+              -9.51,
+              275.63
+            ],
+            "rotation": 0,
+            "text": "echo",
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "middle"
+            }
+          },
+          "af0351d0-9f4d-4f5e-178c-99534b4f2f5e": {
+            "id": "af0351d0-9f4d-4f5e-178c-99534b4f2f5e",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 4,
+            "point": [
+              -89.61,
+              332.39
+            ],
+            "rotation": 0,
+            "text": "-n",
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "middle"
+            }
+          },
+          "1806e9c8-38d3-44e1-0456-bec21e29a9d7": {
+            "id": "1806e9c8-38d3-44e1-0456-bec21e29a9d7",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 5,
+            "point": [
+              -91.11,
+              386.27
+            ],
+            "rotation": 0,
+            "text": "hello :leet  check :leet",
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "middle"
+            }
+          },
+          "63cf01ee-93b2-485a-0ce0-41c7a8379b97": {
+            "id": "63cf01ee-93b2-485a-0ce0-41c7a8379b97",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 6,
+            "point": [
+              409.11,
+              5.83
+            ],
+            "rotation": 0,
+            "text": "|",
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "middle"
+            }
+          },
+          "6a3afbc8-54e6-4ddf-2fa9-7acd4b7c2af4": {
+            "id": "6a3afbc8-54e6-4ddf-2fa9-7acd4b7c2af4",
+            "type": "text",
+            "name": "Text",
+            "parentId": "page",
+            "childIndex": 7,
+            "point": [
+              603.73,
+              207.1
+            ],
+            "rotation": 0,
+            "text": "cat",
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1,
+              "font": "script",
+              "textAlign": "middle"
+            }
+          }
+        },
+        "bindings": {}
+      }
+    },
+    "pageStates": {
+      "page": {
+        "id": "page",
+        "selectedIds": [],
+        "camera": {
+          "point": [
+            0,
+            0
+          ],
+          "zoom": 1
+        }
+      }
+    },
+    "assets": {}
+  },
+  "assets": {}
+}
