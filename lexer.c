@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:07 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 00:36:26 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/07 04:57:31 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,25 @@ char	*fixquotes(void)
 	char	*tmp;
 
 	c = NULL;
+	tmp = c;
 	if (g_spot.quotes & DOUBLE)
+	{
 		c = readline("DQUOTE>");
+		c = ft_strjoin("\n", c);
+	}
 	else if (g_spot.quotes & SINGLE)
+	{
 		c = readline("SQUOTE>");
+		c = ft_strjoin("\n", c);
+	}
 	else if (g_spot.quotes & EPI)
 	{
 		c = readline("pipe>");
+		if (c[0])
 		g_spot.quotes ^= EPI;
 	}
 	if (!c)
 		return (NULL);
-	tmp = c;
-	c = ft_strjoin("\n", c);
 	free(tmp);
 	return (c);
 }
@@ -46,7 +52,7 @@ char	*lexicon(char *c)
 		i++;
 	if (c[i] == '|' && g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE)
 		return (printf("minishell: syntax error near unexpected token `|'\n"),
-			NULL);
+				NULL);
 	while (c[i])
 	{
 		if (c[i] == '"' && g_spot.quotes ^ SINGLE)

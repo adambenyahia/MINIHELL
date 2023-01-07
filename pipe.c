@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:57 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 02:50:27 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/07 04:44:17 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	piper(t_tree *cmd, t_env **env)
     }
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(-1, &g_spot.exit_status, 0);
-	waitpid(-1, &g_spot.exit_status, 0);
+	waitpid(leftpid, &g_spot.exit_status, 0);
+	waitpid(rightpid, &g_spot.exit_status, 0);
 }

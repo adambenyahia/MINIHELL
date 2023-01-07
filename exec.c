@@ -118,6 +118,8 @@ void exec(t_tree *cmd, t_env **env)
 {
 	if (!cmd)
 		return;
+	if (cmd->errorflag == -2)
+		return;
 	if (cmd->errorflag > 0)
 	{
 		printf("minishell: %s\n", strerror(cmd->errorflag));
