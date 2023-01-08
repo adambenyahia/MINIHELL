@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/08 03:57:38 by beadam            #+#    #+#             */
+/*   Updated: 2023/01/08 07:37:14 by beadam           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_cd(char **cmd, t_env *env)
@@ -51,12 +63,11 @@ void	ft_cd(char **cmd, t_env *env)
 		free(tmp);
 		free(path);
 	}
-
 }
 
 void	pwd_cmd(char **cmd, int fd)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] != '\0')

@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/08 03:58:17 by beadam            #+#    #+#             */
+/*   Updated: 2023/01/08 04:25:38 by beadam           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_env(char **cmd, t_env *env, int fd)
 {
-	t_key_value *tmp;
+	t_key_value	*tmp;
+
 	if (cmd[1])
 	{
 		printf("usage: env [no options] [no arguments]\n");

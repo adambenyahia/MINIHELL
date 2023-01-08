@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:48 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 00:24:49 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 07:46:54 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static t_tokens	*new_token(char *token, int flag)
 	new->previous = NULL;
 	return (new);
 }
+
 static void	add_token(t_tokens **list, t_tokens *new)
 {
 	if (!list || !(*list))
@@ -44,9 +45,10 @@ static void	add_token(t_tokens **list, t_tokens *new)
 	new->previous = (*list)->tail;
 	(*list)->tail = new;
 }
+
 int	set_token(t_tokens **list, char *input, int len, int flag)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!len)

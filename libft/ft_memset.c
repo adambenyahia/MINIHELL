@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beadam <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 15:49:04 by beadam            #+#    #+#             */
-/*   Updated: 2021/11/08 15:59:36 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 04:03:37 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ void	*ft_memset(void *b, int c, size_t len)
 		*(ptr++) = (unsigned char)c;
 	return (b);
 }
-

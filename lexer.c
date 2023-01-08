@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:07 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 04:57:31 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 07:38:21 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*fixquotes(void)
 	{
 		c = readline("pipe>");
 		if (c[0])
-		g_spot.quotes ^= EPI;
+			g_spot.quotes ^= EPI;
 	}
 	if (!c)
 		return (NULL);
@@ -52,30 +52,28 @@ char	*lexicon(char *c)
 		i++;
 	if (c[i] == '|' && g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE)
 		return (printf("minishell: syntax error near unexpected token `|'\n"),
-				NULL);
-	while (c[i])
+			NULL);
+	while (c[i++])
 	{
 		if (c[i] == '"' && g_spot.quotes ^ SINGLE)
 			g_spot.quotes ^= DOUBLE;
 		if (c[i] == '\'' && g_spot.quotes ^ DOUBLE)
 			g_spot.quotes ^= SINGLE;
-		if (c[i] == '|' && (g_spot.quotes ^ SINGLE || g_spot.quotes ^ DOUBLE))
+		if (c[i++] == '|' && (g_spot.quotes ^ SINGLE || g_spot.quotes ^ DOUBLE))
 		{
-			i++;
 			while (c[i] && (c[i] == ' ' || c[i] == '\t'))
 				i++;
 			if (!c[i])
 				g_spot.quotes ^= EPI;
 		}
-		i++;
 	}
 	return (c);
 }
 
 char	*lexer(char *c)
 {
-	int in;
-	char *tmp;
+	int		in;
+	char	*tmp;
 
 	in = 1;
 	if (!c)

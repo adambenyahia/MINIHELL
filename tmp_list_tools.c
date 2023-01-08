@@ -6,17 +6,19 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:50 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 00:24:51 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 07:46:41 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 static t_tokens	*ft_lstlast1(t_tokens *lst)
 {
 	while (lst && lst->next)
 		lst = lst->next;
 	return (lst);
 }
+
 t_tokens	*lastdel_dll(t_tokens **dll)
 {
 	t_tokens	*node;

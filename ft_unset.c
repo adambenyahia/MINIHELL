@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:09 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 00:25:10 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 04:25:55 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ void	ft_unset(char **cmd, t_env **env)
 
 void	remove_env(char *tf, t_env **env)
 {
-	t_key_value **node;
-	t_key_value *save;
+	t_key_value	**node;
+	t_key_value	*save;
 
 	node = &(*env)->head;
 	save = *node;
 	if (!ft_strncmp(tf, (*node)->value, MAXNAMLEN))
 	{
-		(*env)->head = ((*env)->size-- ,(*node)->next);
+		(*env)->head = ((*env)->size--, (*node)->next);
 	}
 	while (*node)
 	{
 		if ((*node)->next && !ft_strncmp(tf, (*node)->next->key, MAXNAMLEN))
 		{
-			(*node)->next = ((*env)->size-- ,(*node)->next->next);
+			(*node)->next = ((*env)->size--, (*node)->next->next);
 		}
 		*node = (*node)->next;
 	}

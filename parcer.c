@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:59 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 00:38:15 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 07:38:50 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_tree	*parce_please(t_tokens **head)
 t_tree	*commander(t_tokens **token)
 {
 	t_cmdlist	*list;
-	io_fd		io;
+	t_io_fd		io;
 	int			err;
 	int			parced;
 	size_t		cmdlen;
@@ -55,7 +55,7 @@ t_tree	*commander(t_tokens **token)
 	return (tree_gen(CMD, list, cmdlen, &io, err, NULL, NULL));
 }
 
-int	cmd_lister(t_tokens **token, io_fd *io, t_cmdlist **list, size_t *cmdlen)
+int	cmd_lister(t_tokens **token, t_io_fd *io, t_cmdlist **list, size_t *cmdlen)
 {
 	int	error;
 

@@ -6,13 +6,13 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:56 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 00:24:57 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 04:02:30 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *lexer(char *c);
+char		*lexer(char *c);
 
 t_tokens	*prompt(void)
 {
@@ -21,7 +21,6 @@ t_tokens	*prompt(void)
 
 	token = NULL;
 	input = lexer(readline("minishell $ "));
-	
 	if (!ft_strncmp("clear", input, 5))
 		system("clear");
 	if (!ft_strncmp("exit", input, 4))

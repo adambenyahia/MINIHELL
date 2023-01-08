@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:00 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 00:25:01 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 07:42:41 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cmd_addback(t_cmdlist **head, char *cmd, size_t *cmdlen)
 	return (0);
 }
 
-void	init_variables(int *e, int *v, io_fd *io, t_cmdlist **cmdlist,
+void	init_variables(int *e, int *v, t_io_fd *io, t_cmdlist **cmdlist,
 		size_t *cmdlen)
 {
 	*e = 0;
@@ -43,10 +43,10 @@ void	init_variables(int *e, int *v, io_fd *io, t_cmdlist **cmdlist,
 	*cmdlist = NULL;
 }
 
-t_tree	*tree_gen(int type, t_cmdlist *cmd, size_t cmdlen, io_fd *io, int err,
+t_tree	*tree_gen(int type, t_cmdlist *cmd, size_t cmdlen, t_io_fd *io, int err,
 		t_tree *left, t_tree *right)
 {
-	t_tree *chajara;
+	t_tree	*chajara;
 
 	chajara = malloc(sizeof(t_tree));
 	if (!chajara)

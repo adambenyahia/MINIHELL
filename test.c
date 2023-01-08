@@ -6,13 +6,13 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:52 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 00:24:53 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 07:46:18 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void env_list_test(t_env *env_list)
+void	env_list_test(t_env *env_list)
 {
 	while (env_list->head)
 	{
@@ -22,44 +22,44 @@ void env_list_test(t_env *env_list)
 	fflush(stdout);
 }
 
-void token_list_test(t_tokens *token_list)
+void	token_list_test(t_tokens *token_list)
 {
-	char l[20][20] = {"PIPE",
-				"OUTR",
-				"APND",
-				"INR",
-				"HERD",
-				"SQ",
-				"DQ",
-				"VAR",
-				"WORD",
-				"SP",
-				"out of range"};
-	int i = 0;
-	execv("clear",NULL);
+	int		i;
+	char	l[20][20] = {"PIPE",
+		"OUTR",
+		"APND",
+		"INR",
+		"HERD",
+		"SQ",
+		"DQ",
+		"VAR",
+		"WORD",
+		"SP",
+		"out of range"};
+
+	i = 0;
+	execv("clear", NULL);
 	printf("\tFLAG\t\t\tTOKEN\n");
 	if (!token_list)
-	{
-		printf("Empty\n");
-		return;
-	}
+		return (printf("Empty\n"), (void)0);
 	while (token_list)
 	{
-		printf("%d:\t%s\t\t\t%s\n", i++, l[token_list->flag], token_list->token);
+		printf("%d:\t%s\t\t\t%s\n", i++, l[token_list->flag],
+			token_list->token);
 		token_list = token_list->next;
 	}
 }
 
 void	display_cmd_string(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-    printf("CMDS::::\n");
+	printf("CMDS::::\n");
 	while (str[i])
 	{
 		printf("%d: %s\n", i, str[i]);
 		i++;
 	}
-    printf("\n");
+	printf("\n");
 }

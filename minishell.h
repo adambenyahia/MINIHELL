@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:03 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 01:29:29 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 07:38:50 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "readline/readline.h"
 # include <signal.h>
 # include <stdbool.h>
+
 # include <stdlib.h>
 # include <string.h>
 # include <sys/types.h>
@@ -68,7 +69,7 @@ typedef struct io
 {
 	int					in;
 	int					out;
-}						io_fd;
+}						t_io_fd;
 
 typedef struct s_cmdlist
 {
@@ -81,7 +82,7 @@ typedef struct s_tree
 	int					type;
 	t_cmdlist			*cmdlist;
 	size_t				cmdlen;
-	io_fd				file;
+	t_io_fd				file;
 	int					errorflag;
 	struct s_tree		*left;
 	struct s_tree		*right;
@@ -183,7 +184,7 @@ t_tokens				*node_del_dll(t_tokens **dll, t_tokens *node);
 
 /// @brief combine words and remove spaces
 /// @param head pointer to the list
-void	combine_words(t_tokens **head);
+void					combine_words(t_tokens **head);
 
 /////////////////SYNTAX ANALIZER\\\\\\\\\\\\\\\\\\\
 
@@ -221,7 +222,8 @@ int						heredoc(t_tokens **head, int *io);
 /// @param cmd cmd string
 /// @param cmdlen count of inserted cmds
 /// @return error code if it exists(joke, no need)
-int	cmd_addback(t_cmdlist **head, char *cmd, size_t *cmdlen);
+int						cmd_addback(t_cmdlist **head, char *cmd,
+							size_t *cmdlen);
 
 /// @brief assemble set_fd, heredoc, anc cmd_addback functions
 /// @param token pointer to t_lokens list
@@ -229,11 +231,11 @@ int	cmd_addback(t_cmdlist **head, char *cmd, size_t *cmdlen);
 /// @param list pointer to cmd_list
 /// @param cmdlen count of inserted cmds
 /// @return error code if it exists (m not joking now u'll need it)
-int					cmd_lister(t_tokens **token, io_fd *io,
+int						cmd_lister(t_tokens **token, t_io_fd *io,
 							t_cmdlist **list, size_t *cmdlen);
 
 /// @brief extention to commander...
-void					init_variables(int *e, int *v, io_fd *io,
+void					init_variables(int *e, int *v, t_io_fd *io,
 							t_cmdlist **cmdlist, size_t *cmdlen);
 
 /// @brief parce to T_CMD type (while no PIPE exists)
@@ -251,7 +253,7 @@ t_tree					*commander(t_tokens **token);
 /// @param right pointer to right T_TREE node
 /// @return new tree root
 t_tree					*tree_gen(int type, t_cmdlist *cmd, size_t cmdlen,
-							io_fd *io, int err, t_tree *left, t_tree *right);
+							t_io_fd *io, int err, t_tree *left, t_tree *right);
 
 /// @brief when you start begging ur code to work(extention)
 /// @param head pointer to t_tokens list
@@ -263,18 +265,18 @@ t_tree					*parce_please(t_tokens **head);
 /// @brief convert t_cmd type to double array
 /// @param node parce tree node
 /// @return pointer to cmds array
-char	**cmdstring(t_tree *node);
+char					**cmdstring(t_tree *node);
 
 /// @brief execute t_tree node
 /// @param cmd pointer to t_tree node
 /// @param env pointer to t_env list
-void	exec(t_tree *cmd, t_env **env);
+void					exec(t_tree *cmd, t_env **env);
 
+void					piper(t_tree *cmd, t_env **env);
 
-void	piper(t_tree *cmd, t_env **env);
+void					exec_cmd(t_tree *cmd, t_env **env);
 
-void exec_cmd(t_tree *cmd, t_env **env);
-
+char					*cmd_path(char *cmd, t_env *env);
 
 /////////////////SIGNAL HANDLERS\\\\\\\\\\\\\\\\\\\\
 
@@ -290,30 +292,30 @@ void					sig_handler(void);
 /// @brief echo cmd implementation with -n flag
 /// @param cmd cmd array
 /// @param fd out file discriptor
-void	ft_echo(char **cmd, int fd);
+void					ft_echo(char **cmd, int fd);
 
 /// @brief change directory cmd implementation
 /// @param cmd cmd array
 /// @param env pointer to t_env list
-void    ft_cd(char **cmd, t_env *env);
+void					ft_cd(char **cmd, t_env *env);
 
 /// @brief printf env variables
 /// @param cmd cmd array
 /// @param env pointer to t_env list
 /// @param fd out FileDescriptor
-void	ft_env(char **cmd, t_env *env, int fd);
+void					ft_env(char **cmd, t_env *env, int fd);
 
 /// @brief unset env variable
 /// @param cmd cmd array
 /// @param env pointer to t_env
-void    ft_unset(char **cmd,t_env **env);
+void					ft_unset(char **cmd, t_env **env);
 
 /// @brief export env variable
 /// @param cmd cmd array
 /// @param env pointer to t_env
-void    ft_export(char **cmd, t_env **env);
+void					ft_export(char **cmd, t_env **env);
 
-void	pwd_cmd(char **cmd, int fd);
+void					pwd_cmd(char **cmd, int fd);
 
 /////////////////ENVIREMENT TOOLS\\\\\\\\\\\\\\\\\\\\
 
@@ -330,18 +332,18 @@ t_env					*init_env(char **env);
 /// @param c env array
 /// @param previous pointer to the previous node
 /// @return (t_key_value node);
-t_key_value *key_retreave(char *c);
+t_key_value				*key_retreave(char *c);
 
 /// @brief find env value
 /// @param key env key
 /// @param env t_env list
 /// @return value corresponding to key
-char	*find_env(char *key, t_env *env);
+char					*find_env(char *key, t_env *env);
 
 /// @brief remove a variable from the list
 /// @param tf variable name
 /// @param env pointer to t_env list
-void remove_env(char *tf, t_env **env);
+void					remove_env(char *tf, t_env **env);
 
 /////////////////TESTING TOOLS\\\\\\\\\\\\\\\\\\\\
 
@@ -355,7 +357,7 @@ void					env_list_test(t_env *env_list);
 
 /// @brief display double pointer array
 /// @param str pointer to the array
-void    display_cmd_string(char **str);
+void					display_cmd_string(char **str);
 
 /////////////////PROMPT TOOLS\\\\\\\\\\\\\\\\\\\\
 
@@ -367,8 +369,8 @@ void					ft_token(t_tokens **head, char *line);
 /// @brief display prompt / tokenize cmd line
 /// @return (pointer to tokens list);
 t_tokens				*prompt(void);
-#endif
 
 ///////////////TMP\\\\\\\\\\\\\\/
-
 t_tokens				*node_del_dll(t_tokens **dll, t_tokens *node);
+
+#endif

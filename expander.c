@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/08 03:57:23 by beadam            #+#    #+#             */
+/*   Updated: 2023/01/08 04:21:51 by beadam           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*find_env(char *key, t_env *env)
@@ -47,13 +59,13 @@ void	combine_words(t_tokens **head)
 
 void	expand(t_env *env, t_tokens **head)
 {
-	t_tokens *token;
+	t_tokens	*token;
 
 	token = *head;
 	while (token)
 	{
 		if (token->flag == VAR)
-		{	
+		{
 			if (!ft_strncmp(token->token + 1, "?", 1))
 				token->token = ft_itoa(g_spot.exit_status);
 			else if (!ft_strncmp(token->token + 1, "0", 1))

@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:02 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/07 05:53:31 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/08 07:42:25 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	set_fd(int *io, int def, t_tokens **token)
 			printf("minishell: syntax error near unexpected token `newline'\n");
 		else if ((*token)->next->flag != WORD)
 			printf("minishell: syntax error near unexpected token \'%s\'\n",
-					(*token)->next->token);
+				(*token)->next->token);
 		return (*io = -1, -2);
 	}
 	if (*io != def)
@@ -59,11 +59,12 @@ int	heredoc(t_tokens **head, int *io)
 
 	*head = (*head)->next;
 	if (!*head || !(*head)->token)
-		return (printf("minishell: syntax error near unexpected token `newline'\n"),
-				-2);
+		return (printf("minishell: %s",
+				"syntax error near unexpected token `newline'\n"), -2);
 	if ((*head)->flag != WORD)
-		return (printf("minishell: syntax error near unexpected token `%s'\n",
-				(*head)->token), -2);
+		return (printf("minishell: %s `%s'\n",
+				"syntax error near unexpected token", (*head)->token),
+			-2);
 	if (pipe(fd) == -1)
 		return (*io = -1, errno);
 	while (1209)
@@ -77,6 +78,5 @@ int	heredoc(t_tokens **head, int *io)
 		write(fd[1], "\n", 1);
 		free(input);
 	}
-	close(fd[1]);
-	return (*io = fd[0], 0);
+	return (close(fd[1]), *io = fd[0], 0);
 }
