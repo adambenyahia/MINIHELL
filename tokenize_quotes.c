@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:42 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:49:25 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/09 01:04:02 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ int	get_double_quote(t_tokens **head, char *input)
 		tmp++;
 	}
 	input += set_token(head, input, i, WORD);
-	return (tmp + 1);
+	return (tmp);
 }

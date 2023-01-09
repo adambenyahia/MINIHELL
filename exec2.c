@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 04:09:53 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 04:10:01 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/09 00:34:54 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ char	*cmd_path(char *cmd, t_env *env)
 
 	if (!cmd || !*cmd || !env)
 		return (NULL);
+	if ((cmd[0] == '.' && cmd[1] == '/'))
+		if (access(cmd, X_OK | F_OK))
+			return (NULL);
 	if (!access(cmd, X_OK | F_OK))
 		return (cmd);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:07 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:38:21 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/09 01:25:29 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,20 @@ char	*lexicon(char *c)
 	if (c[i] == '|' && g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE)
 		return (printf("minishell: syntax error near unexpected token `|'\n"),
 			NULL);
-	while (c[i++])
+	while (c[i])
 	{
 		if (c[i] == '"' && g_spot.quotes ^ SINGLE)
-			g_spot.quotes ^= DOUBLE;
+{			g_spot.quotes ^= DOUBLE; printf("changed\n");}
 		if (c[i] == '\'' && g_spot.quotes ^ DOUBLE)
-			g_spot.quotes ^= SINGLE;
-		if (c[i++] == '|' && (g_spot.quotes ^ SINGLE || g_spot.quotes ^ DOUBLE))
+{			g_spot.quotes ^= SINGLE; printf("changed\n");}
+		if (c[i++] == '|' && (g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE))
 		{
 			while (c[i] && (c[i] == ' ' || c[i] == '\t'))
 				i++;
 			if (!c[i])
 				g_spot.quotes ^= EPI;
 		}
+		i++;
 	}
 	return (c);
 }
@@ -83,6 +84,7 @@ char	*lexer(char *c)
 	}
 	g_spot.quotes = INITQ;
 	lexicon(c);
+	printf("in is :%d\n", g_spot.quotes);
 	while (g_spot.quotes && in)
 	{
 		tmp = fixquotes();
@@ -93,5 +95,6 @@ char	*lexer(char *c)
 		if (!c)
 			in = 0;
 	}
+	printf("out is :%d\n", g_spot.quotes);
 	return (c);
 }
