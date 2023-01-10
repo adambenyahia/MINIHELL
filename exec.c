@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 04:05:20 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:38:50 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/10 03:37:10 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static bool	exec_builtin(t_tree *cmd, t_env **env)
 		return (ft_env(cmdstring(cmd), *env, cmd->file.out), true);
 	else if (!ft_strncmp(cmd->cmdlist->cmd, "unset", 6))
 		return (ft_unset(cmdstring(cmd), env), true);
+	else if (!ft_strncmp(cmd->cmdlist->cmd, "export", 7))
+		return (ft_export(cmdstring(cmd), env), true);
 	return (false);
 }
-// else if (!ft_strncmp(cmd->cmdlist->cmd, "export", 7))
-// 	return (ft_export(cmdstring(cmd), env), true);
 
 // char **etos(t_env *env)
 // {

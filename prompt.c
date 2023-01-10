@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:56 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/09 01:29:48 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/10 05:41:03 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ t_tokens	*prompt(void)
 	t_tokens	*token;
 
 	token = NULL;
-	// input = lexer(readline("minishell $ "));
-	input = readline("minishell $ ");
-	if (!ft_strncmp("clear", input, 5))
-		system("clear");
+	input = lexer(readline("minishell $ "));
+	if(!input)
+		return (NULL);
 	if (!ft_strncmp("exit", input, 4))
 		exit(0);
 	if (!spaces_only(input))

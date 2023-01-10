@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:12 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:37:22 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/10 05:22:31 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,19 @@ static void	display_env(t_env *env)
 	}
 }
 
+// int validation(char *str)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	if (str[0] != '_' && (!ft_isalpha(str[0]) || ft_isdigit(str[0])))
+// 		return(i++, 1);
+// 	while(str[0]);
+// }
+
 void	ft_export(char **cmd, t_env **env)
 {
 	if (!cmd[1])
 		return (display_env(*env));
+	
 }

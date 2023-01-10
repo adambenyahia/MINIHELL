@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:07 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/09 01:25:29 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/10 05:36:59 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*fixquotes(void)
 			g_spot.quotes ^= EPI;
 	}
 	if (!c)
-		return (NULL);
+		return (g_spot.exit_status = 130,NULL);
 	free(tmp);
 	return (c);
 }
@@ -56,9 +56,9 @@ char	*lexicon(char *c)
 	while (c[i])
 	{
 		if (c[i] == '"' && g_spot.quotes ^ SINGLE)
-{			g_spot.quotes ^= DOUBLE; printf("changed\n");}
+			g_spot.quotes ^= DOUBLE;
 		if (c[i] == '\'' && g_spot.quotes ^ DOUBLE)
-{			g_spot.quotes ^= SINGLE; printf("changed\n");}
+			g_spot.quotes ^= SINGLE;
 		if (c[i++] == '|' && (g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE))
 		{
 			while (c[i] && (c[i] == ' ' || c[i] == '\t'))
@@ -84,7 +84,6 @@ char	*lexer(char *c)
 	}
 	g_spot.quotes = INITQ;
 	lexicon(c);
-	printf("in is :%d\n", g_spot.quotes);
 	while (g_spot.quotes && in)
 	{
 		tmp = fixquotes();
@@ -95,6 +94,5 @@ char	*lexer(char *c)
 		if (!c)
 			in = 0;
 	}
-	printf("out is :%d\n", g_spot.quotes);
 	return (c);
 }
