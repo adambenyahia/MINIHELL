@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:07 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/10 05:36:59 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/10 05:55:17 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ char	*lexicon(char *c)
 	{
 		if (c[i] == '"' && g_spot.quotes ^ SINGLE)
 			g_spot.quotes ^= DOUBLE;
-		if (c[i] == '\'' && g_spot.quotes ^ DOUBLE)
+		else if (c[i] == '\'' && g_spot.quotes ^ DOUBLE)
 			g_spot.quotes ^= SINGLE;
-		if (c[i++] == '|' && (g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE))
+		else if (c[i] == '|' && (g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE))
 		{
+			i++;
 			while (c[i] && (c[i] == ' ' || c[i] == '\t'))
 				i++;
 			if (!c[i])
