@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:56:15 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 03:57:21 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 05:38:52 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ t_key_value	*key_retreave(char *c)
 	if (!len)
 		return (NULL);
 	node->key = ft_substr(c, 0, len);
+	if (!ft_strncmp(node->key, "SHLVL",sizeof("SHLVL")))
+		return (node->value = ft_itoa(ft_atoi(c + len + 1) + 1),printf("mhere\n"), node);
+		
 	node->value = ft_strdup(c + len + 1);
 	return (node);
 }
@@ -45,7 +48,7 @@ t_env	*init_env(char **env)
 {
 	t_env	*list;
 
-	list = malloc(sizeof(t_env));
+	list = point(malloc(sizeof(t_env)));
 	list->size = string_table_len(env);
 	list->head = NULL;
 	list->tail = NULL;
