@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:57:38 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:37:14 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/12 01:19:52 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,15 @@ void	ft_cd(char **cmd, t_env *env)
 
 	path = NULL;
 	if (cmd[2])
-	{
-		printf("minishell: cd: too many arguments\n");
-		return ;
-	}
+		return (printf("minishell: cd: too many arguments\n"), (void)0);
 	if (!cmd[1] || !cmd[1][0])
 	{
 		path = find_env("HOME", env);
 		if (!path[0])
 		{
 			g_spot.exit_status = 1;
-			printf("minishell: cd: HOME is not set\n");
+			printf("minishell: cd"
+				" HOME is not set\n");
 			return ;
 		}
 	}
@@ -39,22 +37,13 @@ void	ft_cd(char **cmd, t_env *env)
 		if (!path)
 		{
 			g_spot.exit_status = 1;
-			perror("minishell: cd: error retrieving current directory \ngetcwd: cannot access parent directories");
-			return ;
-		}
-	}
-	else if (!ft_strncmp(cmd[1], "-", ft_strlen(cmd[1])))
-	{
-		path = find_env("OLDPWD", env);
-		if (!path[0])
-		{
-			printf("minishell: cd: OLDPWD is not set\n");
+			perror("minishell: cd: error retrieving "
+				"current directory \ngetcwd: cannot access parent directories");
 			return ;
 		}
 	}
 	else
 		path = cmd[1];
-	// tmp = getcwd(tmp, __DARWIN_MAXPATHLEN);
 	if (chdir(path) < 0)
 	{
 		tmp = ft_strjoin("cd: ", path);

@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:05 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 03:13:09 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 14:02:27 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	main(int argc, char const *argv[], char **env)
 	while (true)
 	{
 		token = prompt();
-		// token_list_test(token);
 		expand(lst_env, &token);
+		// token_list_test(token);
 		tree = parce_please(&token);
 		exec(tree, &lst_env);
 		free(token);

@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:03 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:38:50 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 14:04:48 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_global
 extern t_global			g_spot;
 
 /// edit this shit for GOD's love
-typedef struct io
+typedef struct s_io
 {
 	int					in;
 	int					out;
@@ -77,17 +77,6 @@ typedef struct s_cmdlist
 	struct s_cmdlist	*next;
 }						t_cmdlist;
 
-typedef struct s_tree
-{
-	int					type;
-	t_cmdlist			*cmdlist;
-	size_t				cmdlen;
-	t_io_fd				file;
-	int					errorflag;
-	struct s_tree		*left;
-	struct s_tree		*right;
-}						t_tree;
-
 typedef struct s_tokens
 {
 	char				*token;
@@ -96,6 +85,17 @@ typedef struct s_tokens
 	struct s_tokens		*previous;
 	struct s_tokens		*tail;
 }						t_tokens;
+
+typedef struct s_tree
+{
+	int					type;
+	t_cmdlist			*cmdlist;
+	size_t				cmdlen;
+	t_io_fd				file;
+	int					err;
+	struct s_tree		*right;
+	struct s_tree		*left;
+}						t_tree;
 
 typedef struct s_key_value
 {
@@ -119,13 +119,6 @@ typedef struct s_key
 	struct s_key_value	*next;
 }						t_key;
 
-typedef struct s_envi
-{
-	struct s_key_value	**head;
-	struct s_key_value	**tail;
-	char				**tab;
-	size_t				size;
-}						t_envi;
 /////////////////TOKENIZER TOOLS\\\\\\\\\\\\\\\\\\\\
 
 /// @brief check if a string is composed of spaces only
@@ -315,6 +308,9 @@ void					ft_unset(char **cmd, t_env **env);
 /// @param env pointer to t_env
 void					ft_export(char **cmd, t_env **env);
 
+/// @brief print working directory
+/// @param cmd cmd array
+/// @param fd out file discriptor
 void					pwd_cmd(char **cmd, int fd);
 
 /////////////////ENVIREMENT TOOLS\\\\\\\\\\\\\\\\\\\\

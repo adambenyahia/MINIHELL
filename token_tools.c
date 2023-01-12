@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:48 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:46:54 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 13:49:29 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_tokens	*new_token(char *token, int flag)
 
 	new = malloc(sizeof(t_tokens));
 	if (!new)
-		printf("not allocated\n");
+		return (printf("not allocated\n"), NULL);
 	new->token = ft_strdup(token);
 	new->flag = flag;
 	new->next = NULL;

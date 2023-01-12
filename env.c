@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:56:15 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 05:38:52 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 08:15:40 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ t_key_value	*key_retreave(char *c)
 	if (!len)
 		return (NULL);
 	node->key = ft_substr(c, 0, len);
-	if (!ft_strncmp(node->key, "SHLVL",sizeof("SHLVL")))
-		return (node->value = ft_itoa(ft_atoi(c + len + 1) + 1),printf("mhere\n"), node);
-		
 	node->value = ft_strdup(c + len + 1);
 	return (node);
 }

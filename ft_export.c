@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:12 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/10 05:22:31 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 12:40:31 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,4 @@ void	ft_export(char **cmd, t_env **env)
 {
 	if (!cmd[1])
 		return (display_env(*env));
-	
 }

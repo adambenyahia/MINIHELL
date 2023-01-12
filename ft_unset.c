@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:09 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 04:25:55 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 10:43:54 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	ft_unset(char **cmd, t_env **env)
 {
 	int	i;
 
-	printf("unset\n");
 	i = 0;
 	while (cmd[++i])
 		remove_env(cmd[i], env);
+	g_spot.exit_status = 0;
 }
 
 void	remove_env(char *tf, t_env **env)

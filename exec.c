@@ -6,32 +6,11 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 04:05:20 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/10 03:37:10 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 11:16:16 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**cmdstring(t_tree *node)
-{
-	t_cmdlist	*cmdlist;
-	int			i;
-	char		**cmdstring;
-
-	cmdstring = malloc(sizeof(char *) * (node->cmdlen + 1));
-	if (!cmdstring)
-		return (NULL);
-	cmdlist = node->cmdlist;
-	i = 0;
-	while (cmdlist)
-	{
-		cmdstring[i] = cmdlist->cmd;
-		cmdlist = cmdlist->next;
-		i++;
-	}
-	cmdstring[i] = NULL;
-	return (cmdstring);
-}
 
 static bool	exec_builtin(t_tree *cmd, t_env **env)
 {
@@ -66,16 +45,24 @@ void	redirect(t_io_fd red)
 		close(red.in);
 }
 
+void	waiter(int pid)
+{
+	int	ex;
+
+	waitpid(pid, &ex, 0);
+	if (!WIFEXITED(ex))
+		return (g_spot.exit_status = 1, (void)0);
+	g_spot.exit_status = WEXITSTATUS(ex);
+}
+
 void	exec_cmd(t_tree *cmd, t_env **env)
 {
 	int		pid;
-	int		ex;
 	char	**cmdstr;
 	char	*ptr;
 
 	if (!cmd->cmdlist)
 		return ;
-	ex = 0;
 	cmdstr = cmdstring(cmd);
 	if (exec_builtin(cmd, env))
 		return ;
@@ -91,18 +78,18 @@ void	exec_cmd(t_tree *cmd, t_env **env)
 		g_spot.exit_status = 127;
 		exit(127);
 	}
-	waitpid(pid, &ex, 0);
+	waiter(pid);
 }
 
 void	exec(t_tree *cmd, t_env **env)
 {
 	if (!cmd)
 		return ;
-	if (cmd->errorflag == -2)
+	if (cmd->err < 0)
 		return ;
-	if (cmd->errorflag > 0)
+	if (cmd->err > 0)
 	{
-		printf("minishell: %s\n", strerror(cmd->errorflag));
+		printf("minishell: %s\n", strerror(cmd->err));
 		g_spot.exit_status = 1;
 		return ;
 	}

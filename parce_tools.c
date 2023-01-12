@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:00 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:42:41 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 07:32:22 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_tree	*tree_gen(int type, t_cmdlist *cmd, size_t cmdlen, t_io_fd *io, int err,
 	chajara->right = right;
 	chajara->type = type;
 	chajara->cmdlist = cmd;
-	chajara->errorflag = err;
+	chajara->err = err;
 	chajara->cmdlen = cmdlen;
 	if (type == PIPE)
 	{
