@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:42 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 13:52:26 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/12 02:57:11 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	get_single_quote(t_tokens **head, char *input)
 	input++;
 	while (input[i] && input[i] != '\'')
 		i++;
-	set_token(head, input, i, WORD);
-	input += i;
+	input += set_token(head, input, i, WORD);
 	i++;
 	return (i + 1);
 }
