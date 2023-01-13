@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 04:05:20 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 11:16:16 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/13 07:40:30 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,10 @@ static bool	exec_builtin(t_tree *cmd, t_env **env)
 		return (ft_unset(cmdstring(cmd), env), true);
 	else if (!ft_strncmp(cmd->cmdlist->cmd, "export", 7))
 		return (ft_export(cmdstring(cmd), env), true);
+	else if (!ft_strncmp(cmd->cmdlist->cmd, "exit", 5))
+		return (ft_exit(cmdstring(cmd)), true);
 	return (false);
 }
-
-// char **etos(t_env *env)
-// {
-// 	char **array;
-// 	int i;
-// }
 
 void	redirect(t_io_fd red)
 {
@@ -50,9 +46,18 @@ void	waiter(int pid)
 	int	ex;
 
 	waitpid(pid, &ex, 0);
-	if (!WIFEXITED(ex))
-		return (g_spot.exit_status = 1, (void)0);
-	g_spot.exit_status = WEXITSTATUS(ex);
+	if (WIFEXITED(ex))
+		g_spot.exit_status = WEXITSTATUS(ex);
+	if (WTERMSIG(ex) != SIGINT)
+	{
+		if (WTERMSIG(ex) == SIGQUIT)
+		{
+			printf("Quit: %d\n", WTERMSIG(ex));
+			g_spot.exit_status = 128 + WTERMSIG(ex);
+		}
+		return ;
+	}
+	g_spot.exit_status = 128 + WTERMSIG(ex);
 }
 
 void	exec_cmd(t_tree *cmd, t_env **env)
@@ -72,11 +77,12 @@ void	exec_cmd(t_tree *cmd, t_env **env)
 		return (perror("failed to create child process"));
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		redirect(cmd->file);
 		execve(ptr, cmdstr, (*env)->tab);
 		printf("minishell: %s: command not found\n", cmdstr[0]);
-		g_spot.exit_status = 127;
-		exit(127);
+		free_exit(127);
 	}
 	waiter(pid);
 }

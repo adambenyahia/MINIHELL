@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:03 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 14:04:48 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/13 06:05:51 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <stdio.h>
-# include "readline/history.h"
-# include "readline/readline.h"
 # include <signal.h>
 # include <stdbool.h>
-
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include "readline/history.h"
+# include "readline/readline.h"
 
 typedef enum tokens
 {
@@ -170,10 +169,10 @@ int						tokenize_variables(t_tokens **head, char *input);
 bool					isword(int c);
 
 /// @brief delete a node from t_token list
-/// @param dll pointer to the head of the list
+/// @param tokens pointer to the head of the list
 /// @param node pointer to the node to delete
 /// @return deleted node
-t_tokens				*node_del_dll(t_tokens **dll, t_tokens *node);
+t_tokens				*shift_node(t_tokens **tokens, t_tokens *node);
 
 /// @brief combine words and remove spaces
 /// @param head pointer to the list
@@ -228,25 +227,31 @@ int						cmd_lister(t_tokens **token, t_io_fd *io,
 							t_cmdlist **list, size_t *cmdlen);
 
 /// @brief extention to commander...
-void					init_variables(int *e, int *v, t_io_fd *io,
-							t_cmdlist **cmdlist, size_t *cmdlen);
+void					init_variables(int *v, t_io_fd *io, t_cmdlist **cmdlist,
+							size_t *cmdlen);
 
 /// @brief parce to T_CMD type (while no PIPE exists)
 /// @param token pointer to t_tokens list
 /// @return T_TREE node with cmd parced
 t_tree					*commander(t_tokens **token);
 
-/// @brief connect or generate T_TREE nodes
+/// @brief crete t_tree node
 /// @param type node type
-/// @param cmd pointer to T_CMD
-/// @param cmdlen count of inserted cmds
-/// @param io pointer to in/out FD
-/// @param err error code
-/// @param left pointer to left T_TREE node
-/// @param right pointer to right T_TREE node
-/// @return new tree root
-t_tree					*tree_gen(int type, t_cmdlist *cmd, size_t cmdlen,
-							t_io_fd *io, int err, t_tree *left, t_tree *right);
+/// @param io io file discriptors
+/// @param left pointer to the left tree node
+/// @param right pointer to the right tree node
+/// @return chajara
+t_tree					*plant_tree(int type, t_io_fd *io, t_tree *left,
+							t_tree *right);
+
+/// @brief connect trees
+/// @param chajara pointer to the tree root
+/// @param cmd pointer to t_cmdlist
+/// @param cmdlen cmd lenght
+/// @param err error number
+/// @return chajara
+t_tree					*water_tree(t_tree *chajara, t_cmdlist *cmd,
+							size_t cmdlen, int err);
 
 /// @brief when you start begging ur code to work(extention)
 /// @param head pointer to t_tokens list
@@ -308,6 +313,9 @@ void					ft_unset(char **cmd, t_env **env);
 /// @param env pointer to t_env
 void					ft_export(char **cmd, t_env **env);
 
+/// @brief clear garb and exit;
+void					ft_exit(char **cmd);
+
 /// @brief print working directory
 /// @param cmd cmd array
 /// @param fd out file discriptor
@@ -355,18 +363,28 @@ void					env_list_test(t_env *env_list);
 /// @param str pointer to the array
 void					display_cmd_string(char **str);
 
-/////////////////PROMPT TOOLS\\\\\\\\\\\\\\\\\\\\
+/////////////////TOOLS\\\\\\\\\\\\\\\\\\\\
 
 /// @brief tokenize the input cmd
 /// @param head pointer to the list
 /// @param line cmd line
 void					ft_token(t_tokens **head, char *line);
 
+t_key_value				*ft_create_node(char **args);
+
+char					**ft_split_export(char *cmd, int pos, int size);
+
+void					ft_append_var(char **args, t_env **env);
+
+void					ft_add_var(char **args, t_env **env);
+
+t_key_value				*find_env2(char *key, t_env *env);
+
 /// @brief display prompt / tokenize cmd line
 /// @return (pointer to tokens list);
 t_tokens				*prompt(void);
 
 ///////////////TMP\\\\\\\\\\\\\\/
-t_tokens				*node_del_dll(t_tokens **dll, t_tokens *node);
-
+// t_tokens				*node_del_dll(t_tokens **dll, t_tokens *node);
+int						ft_isspace(int c);
 #endif

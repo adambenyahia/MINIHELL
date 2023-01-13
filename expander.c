@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:57:23 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 14:01:18 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/13 01:16:59 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*find_env(char *key, t_env *env)
 			return (tmp->value);
 		tmp = tmp->next;
 	}
-	return (ft_strdup(""));
+	return (point(ft_strdup("")));
 }
 
 void	combine_words(t_tokens **head)
@@ -41,8 +41,9 @@ void	combine_words(t_tokens **head)
 	{
 		if (tokens->flag == WORD && tokens->next->flag == WORD)
 		{
-			tokens->token = ft_strjoin(tokens->token, tokens->next->token);
-			node_del_dll(head, tokens->next);
+			tokens->token = point(ft_strjoin(tokens->token, \
+				tokens->next->token));
+			shift_node(head, tokens->next);
 			tokens = *head;
 			continue ;
 		}
@@ -52,7 +53,7 @@ void	combine_words(t_tokens **head)
 	while (tokens)
 	{
 		if (tokens->flag == SP)
-			node_del_dll(head, tokens);
+			shift_node(head, tokens);
 		tokens = tokens->next;
 	}
 }
@@ -67,11 +68,11 @@ void	expand(t_env *env, t_tokens **head)
 		if (token->flag == VAR)
 		{
 			if (!ft_strncmp(token->token + 1, "?", 1))
-				token->token = ft_itoa(g_spot.exit_status);
+				token->token = point(ft_itoa(g_spot.exit_status));
 			else if (!ft_strncmp(token->token + 1, "0", 1))
-				token->token = ft_strdup("minishell");
+				token->token = point(ft_strdup("minishell"));
 			else if (!ft_strncmp(token->token + 1, "$", 1))
-				token->token = ft_itoa(getpid());
+				token->token = point(ft_itoa(getpid()));
 			else
 				token->token = find_env(token->token + 1, env);
 			token->flag = WORD;

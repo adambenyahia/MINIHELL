@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:48 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 13:49:29 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/12 09:49:35 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static t_tokens	*new_token(char *token, int flag)
 {
 	t_tokens	*new;
 
-	new = malloc(sizeof(t_tokens));
+	new = point(malloc(sizeof(t_tokens)));
 	if (!new)
 		return (printf("not allocated\n"), NULL);
-	new->token = ft_strdup(token);
+	new->token = token;
 	new->flag = flag;
 	new->next = NULL;
 	new->tail = NULL;
@@ -60,6 +60,6 @@ int	set_token(t_tokens **list, char *input, int len, int flag)
 		add_token(list, new_token("SPACE", SP));
 		return (i + 1);
 	}
-	add_token(list, new_token(ft_substr(input, 0, len), flag));
+	add_token(list, new_token(point(ft_substr(input, 0, len)), flag));
 	return (len);
 }

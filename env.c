@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:56:15 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 08:15:40 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/12 09:04:54 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ t_key_value	*key_retreave(char *c)
 	size_t		len;
 	t_key_value	*node;
 
-	node = malloc(sizeof(t_key_value));
+	node = point(malloc(sizeof(t_key_value)));
 	node->next = NULL;
 	len = 0;
 	while (c[len] && c[len] != '=')
 		len++;
 	if (!len)
 		return (NULL);
-	node->key = ft_substr(c, 0, len);
-	node->value = ft_strdup(c + len + 1);
+	node->key = point(ft_substr(c, 0, len));
+	node->value = point(ft_strdup(c + len + 1));
 	return (node);
 }
 

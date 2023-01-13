@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:59 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:38:50 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/12 23:30:20 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_tree	*parce_please(t_tokens **head)
 	while (*head && (*head)->flag == PIPE)
 	{
 		*head = (*head)->next;
-		tree = tree_gen(PIPE, NULL, 1, NULL, 0, tree, commander(head));
+		tree = plant_tree(PIPE, NULL, tree, commander(head));
+		tree = water_tree(tree, NULL, 1, 0);
 		if (!tree->right)
 			return (NULL);
 	}
@@ -41,7 +42,8 @@ t_tree	*commander(t_tokens **token)
 
 	if (!*token)
 		return (NULL);
-	init_variables(&err, &parced, &io, &list, &cmdlen);
+	err = 0;
+	init_variables(&parced, &io, &list, &cmdlen);
 	while (*token && (*token)->flag != PIPE)
 	{
 		err = cmd_lister(token, &io, &list, &cmdlen);
@@ -52,7 +54,7 @@ t_tree	*commander(t_tokens **token)
 	}
 	if (parced == 0)
 		return (NULL);
-	return (tree_gen(CMD, list, cmdlen, &io, err, NULL, NULL));
+	return (water_tree(plant_tree(CMD, &io, NULL, NULL), list, cmdlen, err));
 }
 
 int	cmd_lister(t_tokens **token, t_io_fd *io, t_cmdlist **list, size_t *cmdlen)

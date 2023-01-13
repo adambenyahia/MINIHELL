@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:57:34 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 04:22:31 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/13 01:17:07 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	remove_quotes(t_tokens **tokens)
 		{
 			if (!node->next || node->next->flag != node->flag)
 			{
-				node_del_dll(tokens, node);
+				shift_node(tokens, node);
 				node = *tokens;
 				continue ;
 			}

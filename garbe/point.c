@@ -6,13 +6,13 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 07:50:48 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:51:25 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/13 00:10:58 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_garb	*add_new(void *ptr)
+void	add_new(void *ptr)
 {
 	t_garb	*new;
 
@@ -24,13 +24,6 @@ t_garb	*add_new(void *ptr)
 	}
 	new->ptr = ptr;
 	new->next = NULL;
-	return (new);
-}
-
-void	add_list(t_garb *new)
-{
-	if (!new)
-		return ;
 	if (!g_spot.g_garb)
 		g_spot.g_garb = new;
 	else
@@ -38,6 +31,7 @@ void	add_list(t_garb *new)
 		new->next = g_spot.g_garb;
 		g_spot.g_garb = new;
 	}
+	return ;
 }
 
 void	*point(void *garb)
@@ -47,11 +41,11 @@ void	*point(void *garb)
 		perror("allocation exception :");
 		free_exit(1);
 	}
-	add_list(add_new(garb));
+	add_new(garb);
 	return (garb);
 }
 
-void	free_exit(int status)
+void	free_exit(int exstatus)
 {
 	t_garb	*buff;
 
@@ -62,5 +56,5 @@ void	free_exit(int status)
 		free(buff->ptr);
 		free(buff);
 	}
-	exit(status);
+	exit(exstatus);
 }

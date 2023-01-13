@@ -5,12 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 03:57:38 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/12 01:19:52 by beadam           ###   ########.fr       */
+/*   Created: 2023/01/12 23:36:23 by beadam            #+#    #+#             */
+/*   Updated: 2023/01/13 04:49:01 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_getpath(char **cmd, t_env *env, char *path);
 
 void	ft_cd(char **cmd, t_env *env)
 {
@@ -18,8 +20,23 @@ void	ft_cd(char **cmd, t_env *env)
 	char	*tmp;
 
 	path = NULL;
-	if (cmd[2])
+	if (cmd [1] && cmd[2])
 		return (printf("minishell: cd: too many arguments\n"), (void)0);
+	path = ft_getpath(cmd, env, path);
+	if (!path)
+		return ;
+	if (chdir(path) < 0)
+	{
+		tmp = ft_strjoin("cd: ", path);
+		perror(tmp);
+		g_spot.exit_status = 1;
+		free(tmp);
+		free(path);
+	}
+}
+
+char	*ft_getpath(char **cmd, t_env *env, char *path)
+{
 	if (!cmd[1] || !cmd[1][0])
 	{
 		path = find_env("HOME", env);
@@ -28,7 +45,7 @@ void	ft_cd(char **cmd, t_env *env)
 			g_spot.exit_status = 1;
 			printf("minishell: cd"
 				" HOME is not set\n");
-			return ;
+			return (NULL);
 		}
 	}
 	else if (!ft_strncmp(cmd[1], ".", ft_strlen(cmd[1])))
@@ -39,19 +56,12 @@ void	ft_cd(char **cmd, t_env *env)
 			g_spot.exit_status = 1;
 			perror("minishell: cd: error retrieving "
 				"current directory \ngetcwd: cannot access parent directories");
-			return ;
+			return (NULL);
 		}
 	}
 	else
 		path = cmd[1];
-	if (chdir(path) < 0)
-	{
-		tmp = ft_strjoin("cd: ", path);
-		perror(tmp);
-		g_spot.exit_status = 1;
-		free(tmp);
-		free(path);
-	}
+	return (path);
 }
 
 void	pwd_cmd(char **cmd, int fd)

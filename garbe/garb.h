@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 07:50:40 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:50:41 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/13 06:20:30 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ typedef struct s_garb
 	struct s_garb	*next;
 }				t_garb;
 
-void	add_front(t_garb *new);
-t_garb	*add_new(void *ptr);
+void	add_new(void *ptr);
 void	free_exit(int exstatus);
 void	*point(void *garb);
 

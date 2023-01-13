@@ -6,11 +6,31 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:24:45 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 13:55:38 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/11 11:10:10 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_token_2(t_tokens **head, char *line)
+{
+	int	i;
+
+	i = 0;
+	if (*line == '>' && *(line + 1) == '>')
+		i = set_token(head, line, 2, APPEND);
+	else if (*line == '<' && *(line + 1) != '<')
+		i = set_token(head, line, 1, INRED);
+	else if (*line == '<' && *(line + 1) == '<')
+		i = set_token(head, line, 2, HERDOC);
+	else if (*line == '$' && (ft_isalnum(*(line + 1)) || *(line + 1) == '_'
+			|| *(line + 1) == '?' || *(line + 1) == '0' || *(line
+				+ 1) == '$'))
+		i = tokenize_variables(head, line);
+	else
+		i = set_word_token(head, line);
+	return (i);
+}
 
 void	ft_token(t_tokens **head, char *line)
 {
@@ -31,18 +51,8 @@ void	ft_token(t_tokens **head, char *line)
 			i = get_double_quote(head, line);
 		else if (*line == '>' && *(line + 1) != '>')
 			i = set_token(head, line, 1, OUTRED);
-		else if (*line == '>' && *(line + 1) == '>')
-			i = set_token(head, line, 2, APPEND);
-		else if (*line == '<' && *(line + 1) != '<')
-			i = set_token(head, line, 1, INRED);
-		else if (*line == '<' && *(line + 1) == '<')
-			i = set_token(head, line, 2, HERDOC);
-		else if (*line == '$' && (ft_isalnum(*(line + 1)) || *(line + 1) == '_'
-				|| *(line + 1) == '?' || *(line + 1) == '0' || *(line
-					+ 1) == '$'))
-			i = tokenize_variables(head, line);
 		else
-			i = set_word_token(head, line);
+			i = ft_token_2(head, line);
 		line += i;
 	}
 }

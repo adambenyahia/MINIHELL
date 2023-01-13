@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:07 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/11 11:20:56 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/13 04:53:59 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ char	*fixquotes(void)
 	char	*c;
 	char	*tmp;
 
+	tmp = NULL;
 	c = NULL;
-	tmp = c;
 	if (g_spot.quotes & DOUBLE)
 	{
-		c = readline("DQUOTE>");
-		c = ft_strjoin("\n", c);
+		tmp = readline("DQUOTE>");
+		c = ft_strjoin("\n", tmp);
 	}
 	else if (g_spot.quotes & SINGLE)
 	{
-		c = readline("SQUOTE>");
-		c = ft_strjoin("\n", c);
+		tmp = readline("SQUOTE>");
+		c = ft_strjoin("\n", tmp);
 	}
 	else if (g_spot.quotes & EPI)
 	{
@@ -41,18 +41,8 @@ char	*fixquotes(void)
 	return (c);
 }
 
-char	*lexicon(char *c)
+static void	ft_quotes(char *c, int i)
 {
-	int	i;
-
-	i = 0;
-	if (!c)
-		return (NULL);
-	while (c[i] && (c[i] == ' ' || c[i] == '\t'))
-		i++;
-	if (c[i] == '|' && g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE)
-		return (printf("minishell: syntax error near unexpected token `|'\n"),
-			NULL);
 	while (c[i])
 	{
 		if (c[i] == '"' && g_spot.quotes ^ SINGLE)
@@ -69,7 +59,22 @@ char	*lexicon(char *c)
 				g_spot.quotes ^= EPI;
 		}
 		i++;
-	}
+	}	
+}
+
+char	*lexicon(char *c)
+{
+	int	i;
+
+	i = 0;
+	if (!c)
+		return (NULL);
+	while (c[i] && (c[i] == ' ' || c[i] == '\t'))
+		i++;
+	if (c[i] == '|' && g_spot.quotes ^ SINGLE && g_spot.quotes ^ DOUBLE)
+		return (printf("minishell: syntax error near unexpected token `|'\n"),
+			NULL);
+	ft_quotes(c, i);
 	return (c);
 }
 
@@ -80,21 +85,18 @@ char	*lexer(char *c)
 
 	in = 1;
 	if (!c)
-	{
-		printf("EOF\n");
-		exit(0);
-	}
+		free_exit(0);
 	g_spot.quotes = INITQ;
-	lexicon(c);
+	point(lexicon(c));
 	while (g_spot.quotes && in)
 	{
 		tmp = fixquotes();
 		if (!tmp)
 			return (NULL);
-		c = ft_strjoin(c, lexicon(tmp));
-		free(tmp);
+		c = point(ft_strjoin(c, lexicon(tmp)));
 		if (!c)
 			in = 0;
+		free(tmp);
 	}
 	return (c);
 }

@@ -6,7 +6,7 @@
 /*   By: beadam <beadam@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 00:25:02 by beadam            #+#    #+#             */
-/*   Updated: 2023/01/08 07:42:25 by beadam           ###   ########.fr       */
+/*   Updated: 2023/01/13 05:10:00 by beadam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,5 @@ int	heredoc(t_tokens **head, int *io)
 		write(fd[1], "\n", 1);
 		free(input);
 	}
-	return (close(fd[1]), *io = fd[0], 0);
+	return (free(input), close(fd[1]), *io = fd[0], 0);
 }
