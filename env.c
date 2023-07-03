@@ -29,18 +29,6 @@ t_key_value	*key_retreave(char *c)
 	return (node);
 }
 
-// t_key_value	*key_append(char *c)
-// {
-// 	size_t		len;
-// 	t_key_value	*node;
-
-// 	node = malloc(sizeof(t_key_value));
-// 	node->next = NULL;
-// 	len = 0;
-// 	while (c[len] && c[len] != '=' && c[len] != '+')
-// 		len++;
-// }
-
 t_env	*init_env(char **env)
 {
 	t_env	*list;
@@ -65,9 +53,3 @@ t_env	*init_env(char **env)
 	return (list);
 }
 
-// t_envi *init_envi(char **env)
-// {
-// 	t_envi *list;
-// 	list = malloc(sizeof(t_envi));
-
-// }
